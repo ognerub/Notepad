@@ -1,13 +1,8 @@
-//
-//  ViewController.swift
-//  Notepad
-//
-//  Created by Admin on 1/27/24.
-//
-
 import UIKit
 
-final class ViewController: UIViewController {
+final class ViewController: UIViewController, AlertView {
+    
+    // MARK: - Properties
     
     private lazy var navigationBar: UINavigationBar = {
         let bar = UINavigationBar()
@@ -36,7 +31,6 @@ final class ViewController: UIViewController {
         return table
     }()
 
-    
     // MARK: - View controller lifecycle methods
     
     override func viewDidLoad() {
@@ -48,10 +42,31 @@ final class ViewController: UIViewController {
         tableView.register(TableViewCustomCell.self, forCellReuseIdentifier: TableViewCustomCell.cellReuseIdentifier)
     }
     
+    // MARK: - Objective C functions
+    
     @objc
     private func plusButtonTapped() {
-        print("plusButtonTapped")
+        let alertModel = AlertModel(
+            title: "Create note",
+            actionText: "Cancel",
+            action: {},
+            secondActionText: "Create",
+            secondAction: { note in
+                if note == "" {
+                    let errorAlertModel = ErrorAlertModel(
+                        title: "Input error",
+                        actionText: "Repeat",
+                        action: { self.plusButtonTapped() }
+                    )
+                    self.showErrorAlert(errorAlertModel)
+                }
+                print("Create \(note)")
+            }
+        )
+        showAlert(alertModel)
     }
+    
+    // MARK: - Configure constraints
     
     private func configureConstraints() {
         view.addSubview(navigationBar)
@@ -73,11 +88,15 @@ final class ViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

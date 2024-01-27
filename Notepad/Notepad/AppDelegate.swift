@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  Notepad
-//
-//  Created by Admin on 1/27/24.
-//
-
 import UIKit
 import CoreData
 

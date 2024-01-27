@@ -1,13 +1,8 @@
-//
-//  TableViewCustomCell.swift
-//  Notepad
-//
-//  Created by Admin on 1/27/24.
-//
-
 import UIKit
 
 final class TableViewCustomCell: UITableViewCell {
+    
+    // MARK: - Properties
     
     static let cellReuseIdentifier = "cell"
     
@@ -32,6 +27,8 @@ final class TableViewCustomCell: UITableViewCell {
     func configureCell(textLabel: String) {
         cellLabel.text = textLabel
     }
+    
+    // MARK: - Configure constraints
     
     private func configureConstraints() {
         addSubview(cellLabel)

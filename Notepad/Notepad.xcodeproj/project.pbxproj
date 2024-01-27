@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		84176F662B6527D40084753B /* TableViewCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84176F652B6527D40084753B /* TableViewCustomCell.swift */; };
+		84176F682B6533D90084753B /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84176F672B6533D90084753B /* AlertView.swift */; };
 		84B6EACE2B651E1E003E7B57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B6EACD2B651E1E003E7B57 /* AppDelegate.swift */; };
 		84B6EAD02B651E1E003E7B57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B6EACF2B651E1E003E7B57 /* SceneDelegate.swift */; };
 		84B6EAD22B651E1E003E7B57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B6EAD12B651E1E003E7B57 /* ViewController.swift */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		84176F652B6527D40084753B /* TableViewCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCustomCell.swift; sourceTree = "<group>"; };
+		84176F672B6533D90084753B /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		84B6EACA2B651E1E003E7B57 /* Notepad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notepad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84B6EACD2B651E1E003E7B57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84B6EACF2B651E1E003E7B57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				84B6EACD2B651E1E003E7B57 /* AppDelegate.swift */,
 				84B6EACF2B651E1E003E7B57 /* SceneDelegate.swift */,
 				84B6EAD12B651E1E003E7B57 /* ViewController.swift */,
+				84176F672B6533D90084753B /* AlertView.swift */,
 				84176F652B6527D40084753B /* TableViewCustomCell.swift */,
 				84B6EAD92B651E21003E7B57 /* Assets.xcassets */,
 				84B6EADB2B651E21003E7B57 /* LaunchScreen.storyboard */,
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84176F682B6533D90084753B /* AlertView.swift in Sources */,
 				84B6EAD22B651E1E003E7B57 /* ViewController.swift in Sources */,
 				84B6EACE2B651E1E003E7B57 /* AppDelegate.swift in Sources */,
 				84B6EAD02B651E1E003E7B57 /* SceneDelegate.swift in Sources */,
