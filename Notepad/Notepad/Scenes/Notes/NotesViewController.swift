@@ -4,6 +4,8 @@ final class NotesViewController: UIViewController, AlertView {
     
     // MARK: - Properties
     
+    private let storage = UserDefaultsManager.shared
+    
     private var viewModel: NotesViewModel?
     
     private lazy var navigationBar: UINavigationBar = {
@@ -45,6 +47,14 @@ final class NotesViewController: UIViewController, AlertView {
         configureConstraints()
         tableViewConfiguration()
         viewModelConfiguration()
+        if array.isEmpty || !storage.isFisrtStart {
+            storage.isFisrtStart = true
+            let firstNote = Note(
+                noteID: UUID(),
+                text: "viewController.firstNote.startText".localized()
+                )
+            addNoteWith(text: firstNote.text, noteID: firstNote.noteID)
+        }
     }
     
     private func tableViewConfiguration() {

@@ -1,3 +1,5 @@
+"viewController.firstNote.startText" = "Привет я заметка, нажми на меня, чтобы увидеть больше! Ты можешь меня редактировать, или удалять (свайпом влево), а можешь добавить еще заметки, нажав на + в правом верхнем углу, чтобы мне не было так одиноко! :)";
+
 "viewController.alertModel.noteTitle" = "Заметка";
 "viewController.alertModel.title" = "Создание заметки";
 "viewController.alertModel.editTitle" = "Редактирование заметки";

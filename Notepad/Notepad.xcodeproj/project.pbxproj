@@ -17,6 +17,7 @@
 		84B6EAD82B651E1E003E7B57 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84B6EAD62B651E1E003E7B57 /* DataModel.xcdatamodeld */; };
 		84B6EADA2B651E21003E7B57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B6EAD92B651E21003E7B57 /* Assets.xcassets */; };
 		84B6EADD2B651E21003E7B57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B6EADB2B651E21003E7B57 /* LaunchScreen.storyboard */; };
+		84DF36B52B659F9C0025B938 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF36B42B659F9C0025B938 /* UserDefaultsManager.swift */; };
 		84E12BB22B654F560095DB79 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E12BB12B654F560095DB79 /* String+Extensions.swift */; };
 		84E12BBB2B65570D0095DB79 /* NoteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E12BBA2B65570D0095DB79 /* NoteStore.swift */; };
 		84E12BC02B655A2E0095DB79 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E12BBF2B655A2E0095DB79 /* Note.swift */; };
@@ -37,6 +38,7 @@
 		84B6EAD92B651E21003E7B57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		84B6EADC2B651E21003E7B57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		84B6EADE2B651E21003E7B57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84DF36B42B659F9C0025B938 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		84E12BB12B654F560095DB79 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		84E12BBA2B65570D0095DB79 /* NoteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteStore.swift; sourceTree = "<group>"; };
 		84E12BBF2B655A2E0095DB79 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
@@ -79,7 +81,7 @@
 				84E12BB42B6553C80095DB79 /* Helpers */,
 				84E12BB32B6553B30095DB79 /* Scenes */,
 				84E12BB72B65543A0095DB79 /* Extensions */,
-				84E12BB82B65546D0095DB79 /* CoreData */,
+				84E12BB82B65546D0095DB79 /* Storage */,
 				84E12BBC2B6559870095DB79 /* ViewModels */,
 				84E12BB62B65541F0095DB79 /* Resourses */,
 				84B6EADE2B651E21003E7B57 /* Info.plist */,
@@ -133,13 +135,14 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		84E12BB82B65546D0095DB79 /* CoreData */ = {
+		84E12BB82B65546D0095DB79 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				84DF36B42B659F9C0025B938 /* UserDefaultsManager.swift */,
 				84E12BB92B6556FA0095DB79 /* Stores */,
 				84B6EAD62B651E1E003E7B57 /* DataModel.xcdatamodeld */,
 			);
-			path = CoreData;
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		84E12BB92B6556FA0095DB79 /* Stores */ = {
@@ -232,6 +235,7 @@
 				84176F682B6533D90084753B /* AlertView.swift in Sources */,
 				844386872B6580F300EAB4A3 /* Colors.swift in Sources */,
 				84E12BBB2B65570D0095DB79 /* NoteStore.swift in Sources */,
+				84DF36B52B659F9C0025B938 /* UserDefaultsManager.swift in Sources */,
 				84E12BB22B654F560095DB79 /* String+Extensions.swift in Sources */,
 				84E12BC42B6567580095DB79 /* NotesViewModel.swift in Sources */,
 				84B6EAD22B651E1E003E7B57 /* NotesViewController.swift in Sources */,
