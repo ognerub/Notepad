@@ -22,7 +22,7 @@ final class ViewController: UIViewController, AlertView {
         return button
     }()
     
-    private let array: [Int] = Array(0...5)
+    private var array: [String] = ["1"]
     
     private let tableView: UITableView = {
         let table = UITableView()
@@ -47,20 +47,24 @@ final class ViewController: UIViewController, AlertView {
     @objc
     private func plusButtonTapped() {
         let alertModel = AlertModel(
-            title: "Create note",
-            actionText: "Cancel",
+            title: "viewController.alertModel.title".localized(),
+            actionText: "viewController.alertModel.cancel".localized(),
             action: {},
-            secondActionText: "Create",
+            secondActionText: "viewController.alertModel.action".localized(),
             secondAction: { note in
+                guard let note = note else { return }
                 if note == "" {
                     let errorAlertModel = ErrorAlertModel(
-                        title: "Input error",
-                        actionText: "Repeat",
+                        title: "viewController.errorAlertModel.title".localized(),
+                        message: "viewController.errorAlertModel.message".localized(),
+                        actionText: "viewController.errorAlertModel.action".localized(),
                         action: { self.plusButtonTapped() }
                     )
                     self.showErrorAlert(errorAlertModel)
+                } else {
+                    self.array.append(note)
+                    self.tableView.reloadData()
                 }
-                print("Create \(note)")
             }
         )
         showAlert(alertModel)
@@ -106,7 +110,7 @@ extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCustomCell.cellReuseIdentifier, for: indexPath) as? TableViewCustomCell else { return UITableViewCell() }
         cell.backgroundColor = .white
-        cell.configureCell(textLabel: String(array[indexPath.row]))
+        cell.configureCell(textLabel: array[indexPath.row])
         return cell
     }
 }

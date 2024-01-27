@@ -10,6 +10,7 @@ struct AlertModel {
 
 struct ErrorAlertModel {
     let title: String
+    let message: String
     let actionText: String
     let action: () -> Void
 }
@@ -25,7 +26,7 @@ extension AlertView where Self: UIViewController {
         let title = model.title
         let alert = UIAlertController(
             title: title,
-            message: "Note can`t be empty!",
+            message: model.message,
             preferredStyle: .alert
         )
         let action = UIAlertAction(title: model.actionText, style: UIAlertAction.Style.default) {_ in

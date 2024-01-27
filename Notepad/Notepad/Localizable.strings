@@ -1,0 +1,6 @@
+"viewController.alertModel.title" = "Создание заметки";
+"viewController.alertModel.cancel" = "Отмена";
+"viewController.alertModel.action" = "Добавить";
+"viewController.errorAlertModel.title" = "Ошибка ввода";
+"viewController.errorAlertModel.message" = "Заметка не должна быть пустой";
+"viewController.errorAlertModel.action" = "Повторить";
