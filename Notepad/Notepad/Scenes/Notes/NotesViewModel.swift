@@ -35,8 +35,8 @@ final class NotesViewModel {
         try? noteStore.addNewNote(note)
     }
     
-    func delete(note: Note) {
-        try? noteStore.deleteSelectedNote(with: note.noteID)
+    func delete(noteID: UUID) {
+        try? noteStore.deleteSelectedNote(with: noteID)
     }
 }
 
