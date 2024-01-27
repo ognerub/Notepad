@@ -124,9 +124,7 @@ final class NoteStore: NSObject {
     func tryToSaveContext(from funcName: String) throws {
         do {
             try context.save()
-            print("success save")
         } catch {
-            print("error save")
             return
         }
     }
