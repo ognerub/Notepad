@@ -4,3 +4,5 @@
 "viewController.errorAlertModel.title" = "Ошибка ввода";
 "viewController.errorAlertModel.message" = "Заметка не должна быть пустой";
 "viewController.errorAlertModel.action" = "Повторить";
+
+"alertView.textField.placeholder" = "Введите заметку сюда";

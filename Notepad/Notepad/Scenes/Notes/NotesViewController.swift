@@ -1,6 +1,6 @@
 import UIKit
 
-final class ViewController: UIViewController, AlertView {
+final class NotesViewController: UIViewController, AlertView {
     
     // MARK: - Properties
     
@@ -42,8 +42,6 @@ final class ViewController: UIViewController, AlertView {
         tableView.register(TableViewCustomCell.self, forCellReuseIdentifier: TableViewCustomCell.cellReuseIdentifier)
     }
     
-    // MARK: - Objective C functions
-    
     @objc
     private func plusButtonTapped() {
         let alertModel = AlertModel(
@@ -53,21 +51,29 @@ final class ViewController: UIViewController, AlertView {
             secondActionText: "viewController.alertModel.action".localized(),
             secondAction: { note in
                 guard let note = note else { return }
-                if note == "" {
-                    let errorAlertModel = ErrorAlertModel(
-                        title: "viewController.errorAlertModel.title".localized(),
-                        message: "viewController.errorAlertModel.message".localized(),
-                        actionText: "viewController.errorAlertModel.action".localized(),
-                        action: { self.plusButtonTapped() }
-                    )
-                    self.showErrorAlert(errorAlertModel)
+                if note != "" {
+                    self.add(note: note)
                 } else {
-                    self.array.append(note)
-                    self.tableView.reloadData()
+                    self.showError()
                 }
             }
         )
         showAlert(alertModel)
+    }
+    
+    private func add(note: String) {
+        array.append(note)
+        tableView.reloadData()
+    }
+    
+    private func showError() {
+        let errorAlertModel = ErrorAlertModel(
+            title: "viewController.errorAlertModel.title".localized(),
+            message: "viewController.errorAlertModel.message".localized(),
+            actionText: "viewController.errorAlertModel.action".localized(),
+            action: { self.plusButtonTapped() }
+        )
+        showErrorAlert(errorAlertModel)
     }
     
     // MARK: - Configure constraints
@@ -94,7 +100,7 @@ final class ViewController: UIViewController, AlertView {
 
 // MARK: - UITableViewDelegate
 
-extension ViewController: UITableViewDelegate {
+extension NotesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
@@ -102,7 +108,7 @@ extension ViewController: UITableViewDelegate {
 
 // MARK: - UITableViewDataSource
 
-extension ViewController: UITableViewDataSource {
+extension NotesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return array.count
     }
@@ -112,5 +118,12 @@ extension ViewController: UITableViewDataSource {
         cell.backgroundColor = .white
         cell.configureCell(textLabel: array[indexPath.row])
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            array.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 }

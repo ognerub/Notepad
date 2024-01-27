@@ -44,7 +44,7 @@ extension AlertView where Self: UIViewController {
             preferredStyle: .alert
         )
         alert.addTextField() { (textField) in
-            textField.placeholder = "Placeholder"
+            textField.placeholder = "alertView.textField.placeholder".localized()
         }
         let action = UIAlertAction(title: model.actionText, style: UIAlertAction.Style.default) {_ in
             model.action()
