@@ -57,7 +57,7 @@ final class NotesViewController: UIViewController, AlertView {
     
     @objc
     private func plusButtonTapped() {
-        let alertModel = AlertModel(
+        let alertModel = TextFieldAlertModel(
             title: "viewController.alertModel.title".localized(),
             actionText: "viewController.alertModel.cancel".localized(),
             action: {},
@@ -71,7 +71,7 @@ final class NotesViewController: UIViewController, AlertView {
                 }
             }
         )
-        showAlert(alertModel)
+        showTextFieldAlert(alertModel)
     }
     
     private func add(text: String) {
@@ -81,13 +81,13 @@ final class NotesViewController: UIViewController, AlertView {
     }
     
     private func showError() {
-        let errorAlertModel = ErrorAlertModel(
+        let errorAlertModel = AlertModel(
             title: "viewController.errorAlertModel.title".localized(),
             message: "viewController.errorAlertModel.message".localized(),
             actionText: "viewController.errorAlertModel.action".localized(),
             action: { self.plusButtonTapped() }
         )
-        showErrorAlert(errorAlertModel)
+        showAlert(errorAlertModel)
     }
     
     // MARK: - Configure constraints
@@ -118,6 +118,18 @@ extension NotesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let row = indexPath.row + 1
+        let text = array[indexPath.row].text
+        let alertModel = AlertModel(
+            title: "Note \(row)",
+            message: text,
+            actionText: "Close",
+            action: { }
+        )
+        showAlert(alertModel)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -131,6 +143,7 @@ extension NotesViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCustomCell.cellReuseIdentifier, for: indexPath) as? TableViewCustomCell else { return UITableViewCell() }
         cell.backgroundColor = .white
         cell.configureCell(textLabel: array[indexPath.row].text)
+        cell.selectionStyle = .none
         return cell
     }
     

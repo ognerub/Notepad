@@ -2,27 +2,27 @@ import UIKit
 
 struct AlertModel {
     let title: String
+    let message: String
+    let actionText: String
+    let action: () -> Void
+}
+
+struct TextFieldAlertModel {
+    let title: String
     let actionText: String
     let action: () -> Void
     var secondActionText: String
     var secondAction: (_ note: String?) -> Void
 }
 
-struct ErrorAlertModel {
-    let title: String
-    let message: String
-    let actionText: String
-    let action: () -> Void
-}
-
 protocol AlertView {
     func showAlert(_ model: AlertModel)
-    func showErrorAlert(_ model: ErrorAlertModel)
+    func showTextFieldAlert(_ model: TextFieldAlertModel)
 }
 
 extension AlertView where Self: UIViewController {
     
-    func showErrorAlert(_ model: ErrorAlertModel) {
+    func showAlert(_ model: AlertModel) {
         let title = model.title
         let alert = UIAlertController(
             title: title,
@@ -36,7 +36,7 @@ extension AlertView where Self: UIViewController {
         present(alert, animated: true)
     }
 
-    func showAlert(_ model: AlertModel) {
+    func showTextFieldAlert(_ model: TextFieldAlertModel) {
         let title = model.title
         let alert = UIAlertController(
             title: title,
