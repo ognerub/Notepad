@@ -4,6 +4,8 @@ final class NotesViewController: UIViewController, AlertView {
     
     // MARK: - Properties
     
+    private var viewModel: NotesViewModel?
+    
     private lazy var navigationBar: UINavigationBar = {
         let bar = UINavigationBar()
         bar.layer.backgroundColor = UIColor.clear.cgColor
@@ -22,7 +24,11 @@ final class NotesViewController: UIViewController, AlertView {
         return button
     }()
     
-    private var array: [String] = ["1"]
+    private lazy var array: [Note] = [] {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
     
     private let tableView: UITableView = {
         let table = UITableView()
@@ -40,6 +46,13 @@ final class NotesViewController: UIViewController, AlertView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(TableViewCustomCell.self, forCellReuseIdentifier: TableViewCustomCell.cellReuseIdentifier)
+        
+        viewModel = NotesViewModel()
+        guard let viewModel = viewModel else { return }
+        self.array = viewModel.notesArray
+        viewModel.$notesArray.bind { _ in
+            self.array = viewModel.notesArray
+        }
     }
     
     @objc
@@ -49,10 +62,10 @@ final class NotesViewController: UIViewController, AlertView {
             actionText: "viewController.alertModel.cancel".localized(),
             action: {},
             secondActionText: "viewController.alertModel.action".localized(),
-            secondAction: { note in
-                guard let note = note else { return }
-                if note != "" {
-                    self.add(note: note)
+            secondAction: { text in
+                guard let text = text else { return }
+                if text != "" {
+                    self.add(text: text)
                 } else {
                     self.showError()
                 }
@@ -61,9 +74,10 @@ final class NotesViewController: UIViewController, AlertView {
         showAlert(alertModel)
     }
     
-    private func add(note: String) {
-        array.append(note)
-        tableView.reloadData()
+    private func add(text: String) {
+        guard let viewModel = viewModel else { return }
+        let note = Note(noteID: UUID(), text: text)
+        viewModel.addNew(note: note)
     }
     
     private func showError() {
@@ -116,7 +130,7 @@ extension NotesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCustomCell.cellReuseIdentifier, for: indexPath) as? TableViewCustomCell else { return UITableViewCell() }
         cell.backgroundColor = .white
-        cell.configureCell(textLabel: array[indexPath.row])
+        cell.configureCell(textLabel: array[indexPath.row].text)
         return cell
     }
     

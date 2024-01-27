@@ -52,8 +52,8 @@ extension AlertView where Self: UIViewController {
         alert.addAction(action)
         let secondAction = UIAlertAction(title: model.secondActionText, style: UIAlertAction.Style.default) {[weak alert] (_) in
             let textField = alert?.textFields?[0]
-            let note: String? = textField?.text
-            model.secondAction(note)
+            let text: String? = textField?.text
+            model.secondAction(text)
         }
         alert.addAction(secondAction)
         present(alert, animated: true)
