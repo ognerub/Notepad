@@ -67,35 +67,52 @@ final class NotesViewController: UIViewController, AlertView {
     
     @objc
     private func plusButtonTapped() {
-        let alertModel = TextFieldAlertModel(
+        showTextFieldAlert()
+    }
+    
+    private func showTextFieldAlert() {
+        let noteID = UUID()
+        let alertModel = DoubleAlertModel(
             title: "viewController.alertModel.title".localized(),
+            message: "",
             actionText: "viewController.alertModel.cancel".localized(),
             action: {},
             secondActionText: "viewController.alertModel.action".localized(),
             secondAction: { text in
                 guard let text = text else { return }
                 if text != "" {
-                    self.add(text: text)
+                    self.addNoteWith(text: text, noteID: noteID)
                 } else {
-                    self.showError()
+                    self.showErrorWhile(edit: false, text: text, noteID: noteID)
                 }
             }
         )
-        showTextFieldAlert(alertModel)
+        showDoubleAlert(
+            alertModel,
+            textField: true,
+            text: ""
+        )
     }
     
-    private func add(text: String) {
+    private func addNoteWith(text: String, noteID: UUID) {
         guard let viewModel = viewModel else { return }
-        let note = Note(noteID: UUID(), text: text)
+        let note = Note(noteID: noteID, text: text)
         viewModel.addNew(note: note)
     }
     
-    private func showError() {
+    private func showErrorWhile(edit: Bool, text: String, noteID: UUID) {
         let errorAlertModel = AlertModel(
             title: "viewController.errorAlertModel.title".localized(),
             message: "viewController.errorAlertModel.message".localized(),
             actionText: "viewController.errorAlertModel.action".localized(),
-            action: { self.plusButtonTapped() }
+            action: {
+                if edit {
+                    let note = Note(noteID: noteID, text: text)
+                    self.edit(note: note)
+                } else {
+                    self.plusButtonTapped()
+                }
+            }
         )
         showAlert(errorAlertModel)
     }
@@ -130,15 +147,40 @@ extension NotesViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let row = indexPath.row + 1
-        let text = array[indexPath.row].text
-        let alertModel = AlertModel(
-            title: "viewController.alertModel.noteTitle".localized() + " \(row)",
-            message: text,
+        let note = array[indexPath.row]
+        show(note: note)
+    }
+    
+    private func show(note: Note) {
+        let alertModel = DoubleAlertModel(
+            title: "viewController.alertModel.noteTitle".localized(),
+            message: note.text,
             actionText: "viewController.alertModel.cancel".localized(),
-            action: { }
-        )
-        showAlert(alertModel)
+            action: { },
+            secondActionText: "viewController.alertModel.edit".localized(),
+            secondAction: { _ in
+                self.edit(note: note)
+            })
+        showDoubleAlert(alertModel, textField: false, text: "")
+    }
+    
+    private func edit(note: Note) {
+        let alertModel = DoubleAlertModel(
+            title: "viewController.alertModel.editTitle".localized(),
+            message: "",
+            actionText: "viewController.alertModel.cancel".localized(),
+            action: { },
+            secondActionText: "viewController.alertModel.action".localized(),
+            secondAction: { text in
+                guard let text = text else { return }
+                if text != "" {
+                    self.deleteNoteWith(id: note.noteID)
+                    self.addNoteWith(text: text, noteID: note.noteID)
+                } else {
+                    self.showErrorWhile(edit: true, text: text, noteID: note.noteID)
+                }
+            })
+        showDoubleAlert(alertModel, textField: true, text: note.text)
     }
 }
 
@@ -159,8 +201,13 @@ extension NotesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let viewModel = viewModel else { return }
-            viewModel.delete(noteID: array[indexPath.row].noteID)
+            let id = array[indexPath.row].noteID
+            deleteNoteWith(id: id)
         }
+    }
+    
+    private func deleteNoteWith(id: UUID) {
+        guard let viewModel = viewModel else { return }
+        viewModel.delete(noteID: id)
     }
 }

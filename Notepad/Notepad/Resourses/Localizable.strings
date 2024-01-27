@@ -1,7 +1,9 @@
 "viewController.alertModel.noteTitle" = "Заметка";
 "viewController.alertModel.title" = "Создание заметки";
+"viewController.alertModel.editTitle" = "Редактирование заметки";
+"viewController.alertModel.edit" = "Изменить";
 "viewController.alertModel.cancel" = "Отмена";
-"viewController.alertModel.action" = "Добавить";
+"viewController.alertModel.action" = "Готово";
 "viewController.errorAlertModel.title" = "Ошибка ввода";
 "viewController.errorAlertModel.message" = "Заметка не должна быть пустой";
 "viewController.errorAlertModel.action" = "Повторить";
