@@ -19,7 +19,7 @@ final class NotesViewController: UIViewController, AlertView {
             target: self,
             action: #selector(plusButtonTapped)
         )
-        button.tintColor = UIColor.blue
+        button.tintColor = UIColor.secondColor
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -32,7 +32,7 @@ final class NotesViewController: UIViewController, AlertView {
     
     private let tableView: UITableView = {
         let table = UITableView()
-        table.backgroundColor = .white
+        table.backgroundColor = UIColor.mainColor
         table.translatesAutoresizingMaskIntoConstraints = false
         return table
     }()
@@ -41,12 +41,22 @@ final class NotesViewController: UIViewController, AlertView {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.mainColor
         configureConstraints()
+        tableViewConfiguration()
+        viewModelConfiguration()
+    }
+    
+    private func tableViewConfiguration() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(TableViewCustomCell.self, forCellReuseIdentifier: TableViewCustomCell.cellReuseIdentifier)
-        
+        tableView.register(
+            TableViewCustomCell.self,
+            forCellReuseIdentifier: TableViewCustomCell.cellReuseIdentifier
+        )
+    }
+    
+    private func viewModelConfiguration() {
         viewModel = NotesViewModel()
         guard let viewModel = viewModel else { return }
         self.array = viewModel.notesArray
@@ -123,9 +133,9 @@ extension NotesViewController: UITableViewDelegate {
         let row = indexPath.row + 1
         let text = array[indexPath.row].text
         let alertModel = AlertModel(
-            title: "Note \(row)",
+            title: "viewController.alertModel.noteTitle".localized() + " \(row)",
             message: text,
-            actionText: "Close",
+            actionText: "viewController.alertModel.cancel".localized(),
             action: { }
         )
         showAlert(alertModel)
@@ -141,7 +151,7 @@ extension NotesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCustomCell.cellReuseIdentifier, for: indexPath) as? TableViewCustomCell else { return UITableViewCell() }
-        cell.backgroundColor = .white
+        cell.backgroundColor = UIColor.mainColor
         cell.configureCell(textLabel: array[indexPath.row].text)
         cell.selectionStyle = .none
         return cell

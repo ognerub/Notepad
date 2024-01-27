@@ -10,7 +10,7 @@ final class TableViewCustomCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "String"
-        label.textColor = .blue
+        label.textColor = UIColor.secondColor
         return label
     }()
     
