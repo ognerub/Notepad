@@ -80,8 +80,10 @@ final class NotesViewController: UIViewController, AlertView {
     private func plusButtonTapped() {
         showTextFieldAlert()
     }
-    
-    private func showTextFieldAlert() {
+}
+
+private extension NotesViewController {
+    func showTextFieldAlert() {
         let noteID = UUID()
         let alertModel = DoubleAlertModel(
             title: "viewController.alertModel.title".localized(),
@@ -106,13 +108,13 @@ final class NotesViewController: UIViewController, AlertView {
         )
     }
     
-    private func addNoteWith(text: String, noteID: UUID) {
+    func addNoteWith(text: String, noteID: UUID) {
         guard let viewModel = viewModel else { return }
         let note = Note(noteID: noteID, text: text)
         viewModel.addNew(note: note)
     }
     
-    private func showErrorWhile(edit: Bool, text: String, noteID: UUID) {
+    func showErrorWhile(edit: Bool, text: String, noteID: UUID) {
         let errorAlertModel = AlertModel(
             title: "viewController.errorAlertModel.title".localized(),
             message: "viewController.errorAlertModel.message".localized(),
