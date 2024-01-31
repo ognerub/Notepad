@@ -134,7 +134,7 @@ private extension NotesViewController {
     
     // MARK: - Configure constraints
     
-    private func configureConstraints() {
+    func configureConstraints() {
         view.addSubview(navigationBar)
         navigationBar.addSubview(plusButton)
         NSLayoutConstraint.activate([
