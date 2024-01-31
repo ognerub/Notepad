@@ -70,7 +70,8 @@ final class NotesViewController: UIViewController, AlertView {
         viewModel = NotesViewModel()
         guard let viewModel = viewModel else { return }
         self.array = viewModel.notesArray
-        viewModel.$notesArray.bind { _ in
+        viewModel.$notesArray.bind { [weak self] _ in
+            guard let self = self else { return }
             self.array = viewModel.notesArray
         }
     }
@@ -88,8 +89,9 @@ final class NotesViewController: UIViewController, AlertView {
             actionText: "viewController.alertModel.cancel".localized(),
             action: {},
             secondActionText: "viewController.alertModel.action".localized(),
-            secondAction: { text in
-                guard let text = text else { return }
+            secondAction: { [weak self] text in
+                guard let self = self,
+                      let text = text else { return }
                 if text != "" {
                     self.addNoteWith(text: text, noteID: noteID)
                 } else {
@@ -115,7 +117,8 @@ final class NotesViewController: UIViewController, AlertView {
             title: "viewController.errorAlertModel.title".localized(),
             message: "viewController.errorAlertModel.message".localized(),
             actionText: "viewController.errorAlertModel.action".localized(),
-            action: {
+            action: { [weak self] in
+                guard let self = self else { return }
                 if edit {
                     let note = Note(noteID: noteID, text: text)
                     self.edit(note: note)
@@ -168,7 +171,8 @@ extension NotesViewController: UITableViewDelegate {
             actionText: "viewController.alertModel.cancel".localized(),
             action: { },
             secondActionText: "viewController.alertModel.edit".localized(),
-            secondAction: { _ in
+            secondAction: { [weak self] _ in
+                guard let self = self else { return }
                 self.edit(note: note)
             })
         showDoubleAlert(alertModel, textField: false, text: "")
@@ -181,8 +185,9 @@ extension NotesViewController: UITableViewDelegate {
             actionText: "viewController.alertModel.cancel".localized(),
             action: { },
             secondActionText: "viewController.alertModel.action".localized(),
-            secondAction: { text in
-                guard let text = text else { return }
+            secondAction: { [weak self] text in
+                guard let self = self,
+                      let text = text else { return }
                 if text != "" {
                     self.deleteNoteWith(id: note.noteID)
                     self.addNoteWith(text: text, noteID: note.noteID)
