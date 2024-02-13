@@ -14,3 +14,13 @@
 Планы по доработке: нет
 
 Стек: #Swift, #MVVM, #CoreData, #User Defaults, #UITableView
+
+Скриншоты:
+
+<div align="center">
+    <img src="/Notepad/Screenshots/01_launchScreen.png?raw=true" width="150px"</img>
+    <img src="/Screenshots/02_note.png?raw=true" width="150px"</img>
+    <img src="/Screenshots/03_createNote.png?raw=true" width="150px"</img>
+    <img src="/Screenshots/04_edit.png?raw=true" width="150px"</img>
+    <img src="/Screenshots/05_deleteNote.png?raw=true" width="150px"</img>
+</div>
